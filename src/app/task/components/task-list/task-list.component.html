@@ -1,0 +1,140 @@
+<div class="table-responsive task-list" *ngIf="tasks$ | async as tasks">
+  <div class="actions-container">
+    <div class="mb-3 add-task-container">
+      <input
+        placeholder="Add Task"
+        class="form-control add-task-field"
+        type="text"
+        [formControl]="addTaskControl"
+        (keyup.enter)="createTask()"
+      />
+
+      <button
+        type="button"
+        class="btn btn-primary add-task-btn"
+        (click)="createTask()"
+        [disabled]="addTaskControl.invalid"
+      >
+        Add
+      </button>
+    </div>
+
+    <div class="filter-by-status btn-group">
+      <span class="filter-by-status-lable">Filter By Status</span>
+
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        id="filter-by-status-btn"
+      >
+        {{ selectedStatus }}
+      </button>
+      <div
+        class="btn-group"
+        ngbDropdown
+        role="group"
+        aria-label="Button group with nested dropdown"
+      >
+        <button
+          type="button"
+          class="btn btn-outline-primary dropdown-toggle-split"
+          ngbDropdownToggle
+        ></button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <button
+            ngbDropdownItem
+            *ngFor="let status of filterByStatuesOptions"
+            (click)="onFilterByStatus(status)"
+          >
+            {{ status }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <input
+      class="form-control mr-sm-2 search"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+      [formControl]="searchCtrl"
+    />
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Status</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody cdkDropList (cdkDropListDropped)="onDrop($event, tasks)">
+      <tr
+        *ngFor="
+          let task of tasks
+            | filterTasksByStatus : selectedStatus
+            | filterTasksByTitle : searchCtrl.value
+        "
+        cdkDrag
+        cdkDragLockAxis="y"
+      >
+        <td class="col-xs">
+          <div class="drag-handle">
+            <ng-container [ngTemplateOutlet]="dragHandleTmpl"> </ng-container>
+            <th class="col">
+              <label class="btn-primary" ngbButtonLabel>
+                <input
+                  type="checkbox"
+                  [checked]="task.status === TaskStatus.Completed"
+                  (change)="onStatusChange(task.id, $event)"
+                  ngbButton
+                />
+              </label>
+            </th>
+          </div>
+        </td>
+
+        <td class="col-xs">{{ task.priority }}</td>
+
+        <td class="col-sm">
+          {{ task.title }}
+        </td>
+        <td class="col-sm">
+          {{ task.status }}
+        </td>
+
+        <td class="col-sm">
+          {{ task.createdDate | date : "yyyy/MM/dd hh:mm" }}
+        </td>
+
+        <td class="col-xs">
+          <div
+            class="cursor-pointer"
+            inlineSVG="/assets/icons/delete_outline.svg"
+            (click)="openDeleteModal(task)"
+          ></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #dragHandleTmpl>
+  <svg
+    class="bi bi-list handle"
+    width="1em"
+    height="1em"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+      clip-rule="evenodd"
+    />
+  </svg>
+</ng-template>

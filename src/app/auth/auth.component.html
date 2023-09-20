@@ -1,0 +1,39 @@
+<div class="auth-container">
+  <div class="card auth-form">
+    <div class="card-body">
+      <h3 class="card-title text-center">{{ formTitle }} to Todo App</h3>
+      <div class="card-text">
+        <form [formGroup]="authForm" (ngSubmit)="submit()">
+          <div class="form-group">
+            <label for="emailAddress">Email address</label>
+            <input
+              type="email"
+              class="form-control form-control-sm"
+              id="emailAddress"
+              formControlName="email"
+            />
+          </div>
+          <div class="form-group password">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              id="password"
+              formControlName="password"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            [disabled]="authForm.invalid"
+          >
+            {{ formTitle }}
+          </button>
+
+          <ng-content select="[linkToOtherForm]"></ng-content>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
