@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-
+import { FirebaseError } from '@angular/fire/app';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -8,9 +8,14 @@ import {
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { map } from 'rxjs';
-import { ToastService } from './toast.service';
-import { User } from '../utils/user.model';
 import { AuthFormFields } from '../auth/auth.component';
+import { User } from '../utils/user.model';
+import { ToastService } from './toast.service';
+
+enum AuthErrorCodes {
+  EMAIL_EXISTS = 'auth/email-already-in-use',
+  INVALID_CREDENTIALS = 'auth/invalid-login-credentials',
+}
 
 @Injectable({
   providedIn: 'root',
@@ -32,13 +37,13 @@ export class AuthService {
     });
   }
 
+  public get currentUser(): User {
+    return JSON.parse(localStorage.getItem('user')!);
+  }
+
   public readonly currentUser$ = this.afAuth.authState;
 
   public readonly isLoggedIn$ = this.currentUser$.pipe(map((user) => !!user));
-
-  get currentUser(): User {
-    return JSON.parse(localStorage.getItem('user')!);
-  }
 
   public signIn(signInInfo: AuthFormFields): void {
     const { email, password } = signInInfo;
@@ -48,8 +53,12 @@ export class AuthService {
       .then(() => {
         this.router.navigate(['/']);
       })
-      .catch(() => {
-        this.toastService.show('Invalid Email or Password', { success: false });
+      .catch((error: FirebaseError) => {
+        if (error.code === AuthErrorCodes.INVALID_CREDENTIALS) {
+          this.toastService.show('Invalid Email or Password', {
+            success: false,
+          });
+        }
       });
   }
 
@@ -63,6 +72,13 @@ export class AuthService {
           this.SetUserData(userCred.user);
         }
         this.router.navigate(['/']);
+      })
+      .catch((error: FirebaseError) => {
+        if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+          this.toastService.show('Email is Already Registered ', {
+            success: false,
+          });
+        }
       });
   }
 
