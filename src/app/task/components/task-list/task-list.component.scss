@@ -1,3 +1,5 @@
+@import "src/assets/styles/breakpoints";
+
 .task-list {
   height: 100%;
   margin: 20px;
@@ -7,33 +9,27 @@
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 
     .add-task-container {
       display: flex;
-      flex-basis: 40%;
-
-      .add-task-field {
-        flex-basis: 40%;
-      }
 
       .add-task-btn {
         margin-left: 10px;
-        flex-basis: 15%;
       }
     }
 
     .filter-by-status {
+      align-items: center;
+
       .filter-by-status-lable {
         margin-right: 10px;
       }
-
-      flex-basis: 20%;
-      right: 175px;
-      align-items: center;
     }
 
     .search {
-      flex-basis: 20%;
+      flex-basis: 25%;
+      margin-top: 15px;
     }
   }
 }
@@ -63,4 +59,10 @@
 
 .cdk-drag-placeholder {
   opacity: 0;
+}
+
+@media screen and (min-width: $MIN_MOBILE_WIDTH) and (max-width: $MIN_TABLET_WIDTH) {
+  .search {
+    flex-basis: 40% !important;
+  }
 }
