@@ -8,15 +8,15 @@ import {
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { map } from 'rxjs';
-import { ToastService } from '../core/services/toast.service';
-import { User } from '../core/utils/user.model';
+import { ToastService } from '../services/toast.service';
+import { User } from '../utils/user.model';
 import { AuthFormFields } from './auth.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
+  private constructor(
     private readonly afAuth: AngularFireAuth,
     private readonly afs: AngularFirestore,
     private readonly router: Router,
