@@ -44,11 +44,11 @@ export class AuthComponent {
     new EventEmitter<AuthFormFields>();
 
   public submit(): void {
-    if (this.authForm.value.email && this.authForm.value.password) {
-      this.onSubmit.emit({
-        email: this.authForm.value.email,
-        password: this.authForm.value.password,
-      });
-    }
+    const { email, password } = this.authForm.getRawValue();
+
+    this.onSubmit.emit({
+      email,
+      password,
+    });
   }
 }
