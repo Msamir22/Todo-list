@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @UntilDestroy()
 @Component({

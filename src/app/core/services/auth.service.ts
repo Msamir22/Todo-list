@@ -8,9 +8,9 @@ import {
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { map } from 'rxjs';
-import { ToastService } from '../services/toast.service';
+import { ToastService } from './toast.service';
 import { User } from '../utils/user.model';
-import { AuthFormFields } from './auth.component';
+import { AuthFormFields } from '../auth/auth.component';
 
 @Injectable({
   providedIn: 'root',

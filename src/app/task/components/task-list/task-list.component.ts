@@ -4,7 +4,7 @@ import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, firstValueFrom, map } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { DeleteConfirmModalComponent } from 'src/app/shared/components/delete-confirm-modal/delete-confirm-modal.component';
 import { TaskService } from '../../services/task.service';

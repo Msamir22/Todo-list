@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
-import { AuthGuard } from '../core/auth/authorization.guard';
+import { AuthGuard } from '../core/guards/authorization.guard';
 import { SharedModule } from '../shared/shared.module';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { FilterTasksByStatusPipe } from './pipes/filter-tasks-by-status.pipe';
