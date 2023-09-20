@@ -2,7 +2,6 @@ import { AsyncPipe, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../services/toast.service';
-import { Toast } from '../../utils/toast.model';
 
 @Component({
   selector: 'app-toasts',
