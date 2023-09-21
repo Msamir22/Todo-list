@@ -32,33 +32,15 @@
       margin-top: 15px;
     }
   }
-}
 
-.drag-handle {
-  display: flex;
-  align-items: center;
-  cursor: move;
+  .drag-handle {
+    display: flex;
+    cursor: move;
 
-  .handle {
-    margin-right: 5px;
+    .handle {
+      margin-right: 5px;
+    }
   }
-}
-
-/* Animate items as they're being sorted. */
-.cdk-drop-list-dragging .cdk-drag {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  padding: 4px;
-}
-
-.cdk-drag-placeholder {
-  opacity: 0;
 }
 
 @media screen and (min-width: $MIN_MOBILE_WIDTH) and (max-width: $MIN_TABLET_WIDTH) {

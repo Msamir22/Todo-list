@@ -8,3 +8,8 @@ export interface TaskDocument {
   readonly title: string;
   readonly userId: string;
 }
+
+export interface UserDocument {
+  uid: string;
+  email: string | null;
+}

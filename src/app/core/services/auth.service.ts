@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FirebaseError } from '@angular/fire/app';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -8,8 +8,8 @@ import {
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { map } from 'rxjs';
+import { UserDocument } from 'src/app/utils/firestore.types';
 import { AuthFormFields } from '../auth/auth.component';
-import { User } from '../utils/user.model';
 import { ToastService } from './toast.service';
 
 enum AuthErrorCodes {
@@ -37,7 +37,7 @@ export class AuthService {
     });
   }
 
-  public get currentUser(): User {
+  public get currentUser(): UserDocument {
     return JSON.parse(localStorage.getItem('user')!);
   }
 
@@ -90,11 +90,11 @@ export class AuthService {
   }
 
   private SetUserData(user: firebase.User) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+    const userRef: AngularFirestoreDocument<UserDocument> = this.afs.doc(
       `users/${user.uid}`
     );
 
-    const userData: User = {
+    const userData: UserDocument = {
       uid: user.uid,
       email: user.email,
     };

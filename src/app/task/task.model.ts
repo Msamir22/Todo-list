@@ -74,7 +74,3 @@ export class TaskCreation implements TaskDocument {
     });
   }
 }
-
-export function filterTasksByTitle(tasks: Task[], title: string): Task[] {
-  return tasks.filter((task) => task.title.includes(title));
-}
