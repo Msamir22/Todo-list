@@ -54,11 +54,9 @@ export class AuthService {
         this.router.navigate(['/']);
       })
       .catch((error: FirebaseError) => {
-        if (error.code === AuthErrorCodes.INVALID_CREDENTIALS) {
-          this.toastService.show('Invalid Email or Password', {
-            success: false,
-          });
-        }
+        this.toastService.show(`${extractFirebaseErrorMessage(error)}`, {
+          success: false,
+        });
       });
   }
 
@@ -74,11 +72,9 @@ export class AuthService {
         this.router.navigate(['/']);
       })
       .catch((error: FirebaseError) => {
-        if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
-          this.toastService.show('Email is Already Registered ', {
-            success: false,
-          });
-        }
+        this.toastService.show(`${extractFirebaseErrorMessage(error)}`, {
+          success: false,
+        });
       });
   }
 
@@ -103,4 +99,8 @@ export class AuthService {
       merge: true,
     });
   }
+}
+
+function extractFirebaseErrorMessage(error: FirebaseError): string {
+  return error.message.split(':')[1].split('(')[0];
 }
