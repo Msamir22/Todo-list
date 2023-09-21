@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
   public constructor(
-    private readonly afAuth: AngularFireAuth,
+    private readonly auth: AuthService,
     private readonly router: Router
   ) {}
 
   public async canActivate(): Promise<boolean> {
-    const user = await firstValueFrom(this.afAuth.user);
+    const isLoggedIn = await firstValueFrom(this.auth.isLoggedIn$);
 
-    if (!user) {
+    if (!isLoggedIn) {
       this.router.navigate(['/auth/signin']);
       return false;
     }
