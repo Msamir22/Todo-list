@@ -26,6 +26,13 @@
       .password {
         margin-top: 10px;
       }
+
+      ::ng-deep {
+        & > .link {
+          text-align: center;
+          padding: 20px 0 0;
+        }
+      }
     }
   }
 }

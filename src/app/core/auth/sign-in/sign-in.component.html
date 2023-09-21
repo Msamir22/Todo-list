@@ -1,5 +1,5 @@
 <app-auth [method]="AuthMethod.SignIn" (onSubmit)="signIn($event)">
   <div linkToOtherForm class="link">
-    Don't have an account? <a href="/auth/signup">Create One</a>
+    Don't have an account? <a routerLink="/auth/signup">Create One</a>
   </div>
 </app-auth>
